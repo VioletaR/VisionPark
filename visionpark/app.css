@@ -20,20 +20,34 @@ html, body,#map {
     aspect-ratio: 0.5 !important;
     display: flex !important;
     flex-direction: column !important;
+    border: 0 !important;
 
 
 }
 .leaflet-control-zoom-in, .leaflet-control-zoom-out {
-    background-color: white !important;
-    color: black !important;
-    width: 100% !important;
-    height: 50% !important;
+    background-color: #ffffff !important; /* Clean white background */
+    color: #333333 !important; /* Use a dark gray for better contrast */
+    width: 100% !important; /* Set a consistent width */
+    height: 50% !important; /* Set a consistent height */
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
-    font-size: xx-large !important;
-
+    font-size: xx-large !important; /* Adjust font size for readability */
+    font-weight: bold !important; /* Make text bold */
+    border-radius: 50% !important; /* Make buttons circular */
+    border: 1px solid #cccccc !important; /* Add a subtle border */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1) !important; /* Add a soft shadow for depth */
+    cursor: pointer !important; /* Change cursor to pointer on hover */
+    transition: all 0.3s ease-in-out !important; /* Add smooth transitions for hover effects */
 }
+
+.leaflet-control-zoom-in:hover, .leaflet-control-zoom-out:hover {
+    background-color: #007BFF !important; /* Change background to blue on hover */
+    color: #ffffff !important; /* Change text color to white on hover */
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2) !important; /* Enhance shadow on hover */
+    transform: scale(1.1) !important; /* Slightly enlarge the button on hover */
+}
+
 
 .leaflet-popup-content-wrapper {
     position: absolute !important;
@@ -54,13 +68,36 @@ html, body,#map {
     z-index: 1000;
     padding: 5px;
     display: flex;
+    border-radius: 50px; /* Make the container rounder */
+    background-color: #f0f0f0; /* Optional: Add a subtle background color */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Add a soft shadow for better aesthetics */
 }
+
 #search {
     width: 90%;
-    padding: 5px;
+    padding: 10px; /* Increase padding for better spacing */
     font-size: xx-large;
+    border: none; /* Remove default border */
+    border-radius: 50px; /* Round the edges of the input field */
+    outline: none; /* Remove focus outline */
+    background-color: #ffffff; /* Ensure a clean white background */
+    box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1); /* Add an inner shadow for depth */
 }
+
 #searchButton {
-    width: 10%;
-    font-size: xx-large;
+    width: 10%; /* Adjust width dynamically based on content */
+    padding: 10px 20px; /* Add padding for a better button size */
+    font-size: large; /* Make the text size readable */
+    font-weight: bold; /* Make the button text bold */
+    color: #ffffff; /* Set text color to white */
+    background-color: #007BFF; /* Use a vibrant color for the button (e.g., blue) */
+    border: none; /* Remove default border */
+    border-radius: 50px; /* Round the button edges */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    transition: all 0.3s ease-in-out; /* Add a smooth transition effect */
+}
+
+#searchButton:hover {
+    background-color: #0056b3; /* Darken the button color on hover */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Add a hover shadow effect */
 }

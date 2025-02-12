@@ -1,104 +1,119 @@
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>VisionPark</title>
-        <link rel="stylesheet" href="app.css">
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    </head>
-    <body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>VisionPark</title>
+    <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
 
-    <div id="search-container">
-        <input type="text" id="search" placeholder="Search for a street...">
-        <button id="searchButton" onclick="searchLocation()">&#x1F50D;</button>
-    </div>
-    <div id="map"></div>
-    <script>
-        // Zoom control position
-        document.addEventListener("DOMContentLoaded", () => {
-            const controlContainer = document.querySelector('.leaflet-control-container');
-            const zoomControl = document.querySelector('.leaflet-control-zoom');
+<div id="search-container">
+    <input type="text" id="search" placeholder="Search for a street...">
+    <button id="searchButton" onclick="searchLocation()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" fill="white"/></svg></button>
+</div>
+<div id="map"></div>
+<script>
+    // Zoom control position
+    document.addEventListener("DOMContentLoaded", () => {
+        const controlContainer = document.querySelector('.leaflet-control-container');
+        const zoomControl = document.querySelector('.leaflet-control-zoom');
 
-            if (controlContainer && zoomControl) {
-                // Dynamically set the position based on zoom control size
-                const zoomRect = zoomControl.getBoundingClientRect();
-                controlContainer.style.bottom = `${zoomRect.height + 20}px`; // Adjust as needed
-                controlContainer.style.right = `${zoomRect.width + 20}px`; // Adjust as needed
-            }
-        });
-
-    </script>
-    <script>
-        // Search for a location
-        function searchLocation() {
-            var searchQuery = document.getElementById('search').value;
-            if (!searchQuery) return;
-
-            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${searchQuery}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.length > 0) {
-                        var lat = data[0].lat;
-                        var lon = data[0].lon;
-                        map.setView([lat, lon], 17);
-                        // L.marker([lat, lon]).addTo(map)
-                        //     .bindPopup(searchQuery).openPopup();
-                    } else {
-                        alert('Location not found');
-                    }
-                })
-                .catch(error => console.error('Error fetching location:', error));
+        if (controlContainer && zoomControl) {
+            // Dynamically set the position based on zoom control size
+            const zoomRect = zoomControl.getBoundingClientRect();
+            controlContainer.style.bottom = `${zoomRect.height + 20}px`; // Adjust as needed
+            controlContainer.style.right = `${zoomRect.width + 20}px`; // Adjust as needed
         }
-    </script>
-    <script>
-        // Map setup plus markers
-        var aveiro_coords = [40.6405, -8.646];
-        var map = L.map('map').setView(aveiro_coords, 17);
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map);
+    });
 
-        var markerIcon = L.Icon.extend({
-            options: {
-                iconSize:     [60, 95],
-                shadowSize:   [50, 64],
-                iconAnchor:   [22, 94],
-                shadowAnchor: [4, 62],
-                popupAnchor:  [-3, -76]
-            }
-        });
+    // Search for a location
+    function searchLocation() {
+        var searchQuery = document.getElementById('search').value;
+        if (!searchQuery) return;
 
-        var markerRed = new markerIcon({iconUrl: 'resources/marker_0.png'}),
-            markerYellow = new markerIcon({iconUrl: 'resources/marker_1.png'}),
-            markerGreen = new markerIcon({iconUrl: 'resources/marker_2.png'});
+        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${searchQuery}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+                    var lat = data[0].lat;
+                    var lon = data[0].lon;
+                    map.setView([lat, lon], 17);
+                    var markerIcon = L.Icon.extend({
+                        options: {
+                            iconSize:     [60, 95],
+                            shadowSize:   [50, 64],
+                            iconAnchor:   [22, 94],
+                            shadowAnchor: [4, 62],
+                            popupAnchor:  [-3, -76]
+                        }
+                    });
+                    L.icon = function (options) {
+                        return new L.Icon(options);
+                    };
+                    var marker = new markerIcon({iconUrl: 'resources/marker.png'});
+                    L.marker([lat, lon], {icon: marker}).addTo(map)
+                        .bindPopup(searchQuery).openPopup();
+                } else {
+                    alert('Location not found');
+                }
+            })
+            .catch(error => console.error('Error fetching location:', error));
+    }
+</script>
+<script>
+    // Map setup plus markers
+    var aveiro_coords = [40.6405, -8.646];
+    var map = L.map('map').setView(aveiro_coords, 17);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
 
-        L.icon = function (options) {
-            return new L.Icon(options);
-        };
-
-        var parks = [
-            {"id": "urn:ngsi-ld:ParkingSpot:0001", "name": "Parque Estacionamento - Nossa Sra dos Aflitos", "full":1,"park_coordinates": [40.642562,-8.645188]},
-            {"id": "urn:ngsi-ld:ParkingSpot:0002", "name": "Parque Mercado Manuel Firmino", "full": 0,"park_coordinates": [40.641312,-8.648312]},
-            {"id": "urn:ngsi-ld:ParkingSpot:0003", "name": "Parking Forum Aveiro", "full": 1,"park_coordinates": [40.641188,-8.649563]},
-            {"id": "urn:ngsi-ld:ParkingSpot:0004", "name": "Parque de Estacionamento - Estação de Aveiro", "full": 2,"park_coordinates": [40.642688,-8.639312]},
-        ]
-
-        for (let park of parks) {
-            let marker = L.marker(park.park_coordinates, {icon: markerRed});
-            if (park.full === 2) {
-                marker = L.marker(park.park_coordinates, {icon: markerGreen});
-            }
-            else if (park.full === 1) {
-                marker = L.marker(park.park_coordinates, {icon: markerYellow});
-            }
-            marker.addTo(map);
-            marker.bindPopup(`<div class="markerPoppup"><b>${park.name}</b><br></div>`); //<button onclick="reserve('${park.id}')">Reserve</button>
+    var markerIcon = L.Icon.extend({
+        options: {
+            iconSize:     [60, 95],
+            shadowSize:   [50, 64],
+            iconAnchor:   [22, 94],
+            shadowAnchor: [4, 62],
+            popupAnchor:  [-3, -76]
         }
+    });
 
+    var markerRed = new markerIcon({iconUrl: 'resources/marker_0.png'}),
+        markerYellow = new markerIcon({iconUrl: 'resources/marker_1.png'}),
+        markerGreen = new markerIcon({iconUrl: 'resources/marker_2.png'});
 
-    </script>
-    </body>
+    L.icon = function (options) {
+        return new L.Icon(options);
+    };
 
-    </html>
+    var parks = [
+        {"id": "urn:ngsi-ld:ParkingSpot:0001", "name": "Parque Estacionamento - Nossa Sra dos Aflitos", "full":1,"park_coordinates": [40.642562,-8.645188]},
+        {"id": "urn:ngsi-ld:ParkingSpot:0002", "name": "Parque Mercado Manuel Firmino", "full": 0,"park_coordinates": [40.641312,-8.648312]},
+        {"id": "urn:ngsi-ld:ParkingSpot:0003", "name": "Parking Forum Aveiro", "full": 1,"park_coordinates": [40.641188,-8.649563]},
+        {"id": "urn:ngsi-ld:ParkingSpot:0004", "name": "Parque de Estacionamento - Estação de Aveiro", "full": 2,"park_coordinates": [40.642688,-8.639312]},
+    ]
+
+    for (let park of parks) {
+        let marker = L.marker(park.park_coordinates, {icon: markerRed});
+        if (park.full === 2) {
+            marker = L.marker(park.park_coordinates, {icon: markerGreen});
+        }
+        else if (park.full === 1) {
+            marker = L.marker(park.park_coordinates, {icon: markerYellow});
+        }
+        marker.addTo(map);
+        marker.bindPopup(`<div class="markerPoppup"><b>${park.name}</b><br></div>`); //<button onclick="reserve('${park.id}')">Reserve</button>
+    }
+
+    document.getElementById('search').addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // Prevent form submission if inside a form
+            searchLocation();
+        }
+    });
+</script>
+</body>
+</html>
