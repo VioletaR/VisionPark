@@ -45,37 +45,6 @@
         }
     });
 
-    // Search for a location
-    function searchLocation() {
-        let searchQuery = document.getElementById('search').value;
-        if (!searchQuery) return;
-
-        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${searchQuery}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.length > 0) {
-                    let lat = data[0].lat;
-                    let lon = data[0].lon;
-                    map.setView([lat, lon], 17);
-                    let markerIcon = L.Icon.extend({
-                        options: {
-                            iconSize: [60, 95],
-                            iconAnchor: [15, 45],
-                        }
-                    });
-                    L.icon = function (options) {
-                        return new L.Icon(options);
-                    };
-                    let marker = new markerIcon({iconUrl: 'resources/marker.png'});
-                    L.marker([lat, lon], {icon: marker}).addTo(map)
-                } else {
-                    alert('Location not found');
-                }
-            })
-            .catch(error => console.error('Error fetching location:', error));
-    }
-</script>
-<script>
     // Initialize the map
     let aveiro_coords = [40.6405, -8.646];
     let map = L.map('map').setView(aveiro_coords, 17);
@@ -193,13 +162,20 @@
 
                     let customIcon = new CustomIcon({iconUrl: 'resources/marker.png'});
                     L.marker([lat, lon], {icon: customIcon}).addTo(map)
-                        .bindPopup(searchQuery).openPopup();
+
 
                     return true;
                 }
                 alert("Not Found!")
             });
     }
+
+    // Add event listener to the search input to trigger search on Enter key press
+    document.getElementById('search').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            searchLocation();
+        }
+    });
 </script>
 </body>
 </html>

@@ -69,7 +69,7 @@ html, body,#map {
     padding: 5px;
     display: flex;
     border-radius: 50px;  
-    background-color: #f0f0f0;  
+    background-color: #ffffff;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);  
 }
 
@@ -113,7 +113,7 @@ html, body,#map {
 
 #parkModal .modal-content {
     position: relative;
-    background-color: #f0f0f0; /* Match the search bar's background */
+    background-color: #ffffff; /* Match the search bar's background */
     margin: auto;
     padding: 20px;
     width: 90%;
