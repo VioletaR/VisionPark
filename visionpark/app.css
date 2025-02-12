@@ -25,27 +25,27 @@ html, body,#map {
 
 }
 .leaflet-control-zoom-in, .leaflet-control-zoom-out {
-    background-color: #ffffff !important; /* Clean white background */
-    color: #333333 !important; /* Use a dark gray for better contrast */
-    width: 100% !important; /* Set a consistent width */
-    height: 50% !important; /* Set a consistent height */
+    background-color: #ffffff !important;  
+    color: #333333 !important;  
+    width: 100% !important;  
+    height: 50% !important;  
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
-    font-size: xx-large !important; /* Adjust font size for readability */
-    font-weight: bold !important; /* Make text bold */
-    border-radius: 50% !important; /* Make buttons circular */
-    border: 1px solid #cccccc !important; /* Add a subtle border */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1) !important; /* Add a soft shadow for depth */
-    cursor: pointer !important; /* Change cursor to pointer on hover */
-    transition: all 0.3s ease-in-out !important; /* Add smooth transitions for hover effects */
+    font-size: xx-large !important;  
+    font-weight: bold !important;  
+    border-radius: 50% !important;  
+    border: 1px solid #cccccc !important;  
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+    cursor: pointer !important;  
+    transition: all 0.3s ease-in-out !important;  
 }
 
 .leaflet-control-zoom-in:hover, .leaflet-control-zoom-out:hover {
-    background-color: #007BFF !important; /* Change background to blue on hover */
-    color: #ffffff !important; /* Change text color to white on hover */
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2) !important; /* Enhance shadow on hover */
-    transform: scale(1.1) !important; /* Slightly enlarge the button on hover */
+    background-color: #007BFF !important;  
+    color: #ffffff !important;  
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2) !important;  
+    transform: scale(1.1) !important;  
 }
 
 
@@ -68,36 +68,100 @@ html, body,#map {
     z-index: 1000;
     padding: 5px;
     display: flex;
-    border-radius: 50px; /* Make the container rounder */
-    background-color: #f0f0f0; /* Optional: Add a subtle background color */
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Add a soft shadow for better aesthetics */
+    border-radius: 50px;  
+    background-color: #f0f0f0;  
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);  
 }
 
 #search {
     width: 90%;
-    padding: 10px; /* Increase padding for better spacing */
+    padding: 10px;  
     font-size: xx-large;
-    border: none; /* Remove default border */
-    border-radius: 50px; /* Round the edges of the input field */
-    outline: none; /* Remove focus outline */
-    background-color: #ffffff; /* Ensure a clean white background */
-    box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1); /* Add an inner shadow for depth */
+    border: none;  
+    border-radius: 50px;  
+    outline: none;  
+    background-color: #ffffff;  
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 #searchButton {
-    width: 10%; /* Adjust width dynamically based on content */
-    padding: 10px 20px; /* Add padding for a better button size */
-    font-size: large; /* Make the text size readable */
-    font-weight: bold; /* Make the button text bold */
-    color: #ffffff; /* Set text color to white */
-    background-color: #007BFF; /* Use a vibrant color for the button (e.g., blue) */
-    border: none; /* Remove default border */
-    border-radius: 50px; /* Round the button edges */
-    cursor: pointer; /* Change cursor to pointer on hover */
-    transition: all 0.3s ease-in-out; /* Add a smooth transition effect */
+    width: 10%;  
+    padding: 10px 20px;  
+    font-size: large;  
+    font-weight: bold;  
+    color: #ffffff;  
+    background-color: #007BFF;  
+    border: none;  
+    border-radius: 50px;  
+    cursor: pointer;  
+    transition: all 0.3s ease-in-out;  
 }
 
 #searchButton:hover {
-    background-color: #0056b3; /* Darken the button color on hover */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Add a hover shadow effect */
+    background-color: #0056b3;  
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+#parkModal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Ensure it's on top */
+    overflow: hidden; /* Prevent scrolling issues */
+}
+
+#parkModal .modal-content {
+    position: relative;
+    background-color: #f0f0f0; /* Match the search bar's background */
+    margin: auto;
+    padding: 20px;
+    width: 90%;
+    border-radius: 50px 50px 0 0; /* Rounded corners like the search bar */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Similar shadow effect */
+    animation: slideUp 0.4s ease-out forwards;
+    font-size: x-large;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.modal-header h2 {
+    font-size: xx-large; /* Match font size with search bar */
+    color: #333333; /* Neutral text color */
+}
+
+.close {
+    color: #dc3545; /* red color */
+    font-size: xxx-large; /* Match font size with modal header */
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #a71d2a; /* Darken on hover */
+}
+
+.modal-body {
+    padding-top: 10px;
+}
+
+/* Add hover effect to modal content (optional) */
+#parkModal .modal-content:hover {
+    background-color: #ffffff; /* Lighten on hover */
+}
+
+/* Slide-up animation for smoother appearance */
+@keyframes slideUp {
+    from { transform: translateY(100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.modal.show {
+    display: block;
 }
