@@ -144,9 +144,9 @@
     // Add markers to the map
     parks.forEach(park => {
         let markerIcon =
-            park.full === 2 ? markerGreen :
+            park.full === 2 ? markerRed :
                 park.full === 1 ? markerYellow :
-                    markerRed;
+                    markerGreen;
 
         let marker = L.marker(park.park_coordinates, {icon: markerIcon});
 
