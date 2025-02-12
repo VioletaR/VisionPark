@@ -102,23 +102,23 @@ html, body,#map {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 #parkModal {
-    display: none; /* Hidden by default */
+    display: none; 
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
-    z-index: 1000; /* Ensure it's on top */
-    overflow: hidden; /* Prevent scrolling issues */
+    z-index: 1000; 
+    overflow: hidden; 
 }
 
 #parkModal .modal-content {
     position: relative;
-    background-color: #ffffff; /* Match the search bar's background */
+    background-color: #ffffff; 
     margin: auto;
     padding: 20px;
     width: 90%;
-    border-radius: 50px 50px 0 0; /* Rounded corners like the search bar */
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Similar shadow effect */
+    border-radius: 50px 50px 0 0; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     animation: slideUp 0.4s ease-out forwards;
     font-size: x-large;
 }
@@ -131,32 +131,32 @@ html, body,#map {
 }
 
 .modal-header h2 {
-    font-size: xx-large; /* Match font size with search bar */
-    color: #333333; /* Neutral text color */
+    font-size: xx-large; 
+    color: #333333; 
 }
 
 .close {
-    color: #dc3545; /* red color */
-    font-size: xxx-large; /* Match font size with modal header */
+    color: #dc3545; 
+    font-size: xxx-large; 
     font-weight: bold;
     cursor: pointer;
 }
 
 .close:hover,
 .close:focus {
-    color: #a71d2a; /* Darken on hover */
+    color: #a71d2a; 
 }
 
 .modal-body {
     padding-top: 10px;
 }
 
-/* Add hover effect to modal content (optional) */
+
 #parkModal .modal-content:hover {
-    background-color: #ffffff; /* Lighten on hover */
+    background-color: #ffffff; 
 }
 
-/* Slide-up animation for smoother appearance */
+
 @keyframes slideUp {
     from { transform: translateY(100%); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
